@@ -20,7 +20,9 @@ class Program
 
         // Створюємо новий товар
         Product product = new Product("Продукт 1", money1);
+        Console.WriteLine($"Ціна продукту {product.Name}: {product.Price.GetWholePart()}.{product.Price.GetFractionalPart()} {product.Price.Currency.Symbol}");
 
+        
         // Зменшуємо ціну товару
         product.ReducePrice(10);
         Console.WriteLine($"Нова ціна продукту {product.Name}: {product.Price.GetWholePart()}.{product.Price.GetFractionalPart()} {product.Price.Currency.Symbol}");
