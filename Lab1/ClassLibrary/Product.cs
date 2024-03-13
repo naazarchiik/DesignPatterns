@@ -7,15 +7,8 @@ public class Product : IProduct
 
     public Product(string name, Money price)
     {
-        if (string.IsNullOrEmpty(name))
-        {
-            throw new ArgumentException("Name cannot be null or empty.", nameof(name));
-        }
-
-        if (price == null)
-        {
-            throw new ArgumentNullException(nameof(price), "Price cannot be null.");
-        }
+        Validator.ValidateNotNullOrEmpty(name, nameof(name));
+        Validator.ValidateNotNull(price, nameof(price));
 
         Name = name;
         Price = price;
@@ -23,10 +16,7 @@ public class Product : IProduct
 
     public void ReducePrice(int amount)
     {
-        if (amount < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(amount), "Amount cannot be negative.");
-        }
+        Validator.ValidateNonNegative(amount, nameof(amount));
 
         if (Price.GetWholePart() < amount)
         {

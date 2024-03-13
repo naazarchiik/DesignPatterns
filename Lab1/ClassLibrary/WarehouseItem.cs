@@ -10,25 +10,13 @@ public class WarehouseItem
 
     public WarehouseItem(string name, string unitOfMeasure, Money pricePerUnit, int quantity, DateTime lastDeliveryDate)
     {
-        if (string.IsNullOrEmpty(name))
-        {
-            throw new ArgumentException("Name cannot be null or empty.", nameof(name));
-        }
+        Validator.ValidateNotNullOrEmpty(name, nameof(name));
 
-        if (string.IsNullOrEmpty(unitOfMeasure))
-        {
-            throw new ArgumentException("Unit of measure cannot be null or empty.", nameof(unitOfMeasure));
-        }
+        Validator.ValidateNotNullOrEmpty(unitOfMeasure, nameof(unitOfMeasure));
+        
+        Validator.ValidateNotNull(pricePerUnit, nameof(pricePerUnit));
 
-        if (pricePerUnit == null)
-        {
-            throw new ArgumentNullException(nameof(pricePerUnit), "Price per unit cannot be null.");
-        }
-
-        if (quantity < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity cannot be negative.");
-        }
+        Validator.ValidateNonNegative(quantity, nameof(quantity));
 
         Name = name;
         UnitOfMeasure = unitOfMeasure;

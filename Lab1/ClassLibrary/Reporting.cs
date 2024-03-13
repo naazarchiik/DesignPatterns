@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary;
+﻿using System.Text;
+
+namespace ClassLibrary;
 
 public class Reporting
 {
@@ -11,10 +13,7 @@ public class Reporting
 
     public void RegisterArrival(WarehouseItem item)
     {
-        if (item == null)
-        {
-            throw new ArgumentNullException(nameof(item), "Item cannot be null.");
-        }
+        Validator.ValidateNotNull(item, nameof(item));
 
         _warehouse.AddItem(item);
         Console.WriteLine($"Прибуткова накладна: {item.Name}, {item.Quantity} {item.UnitOfMeasure}");
@@ -22,20 +21,10 @@ public class Reporting
 
     public void RegisterDeparture(WarehouseItem item, int quantity)
     {
-        if (item == null)
-        {
-            throw new ArgumentNullException(nameof(item), "Item cannot be null.");
-        }
-
-        if (quantity <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be greater than zero.");
-        }
-
-        if (!_warehouse.Items.Contains(item))
-        {
-            throw new InvalidOperationException("Item not found in warehouse.");
-        }
+        Validator.ValidateNotNull(item, nameof(item));
+        Validator.ValidateGreaterThanZero(quantity, nameof(quantity));
+        
+        ValidateItemInWarehouse(item);
 
         if (item.Quantity < quantity)
         {
@@ -51,7 +40,30 @@ public class Reporting
         Console.WriteLine("Звіт по інвентаризації:");
         foreach (var item in _warehouse.Items)
         {
-            Console.WriteLine($"{item.Name}, {item.Quantity} {item.UnitOfMeasure}, {item.PricePerUnit.GetWholePart()}.{item.PricePerUnit.GetFractionalPart()} {item.PricePerUnit.Currency.Symbol}, {item.LastDeliveryDate}");
+            StringBuilder sb = new StringBuilder();
+            sb.Append(item.Name)
+                .Append(", ")
+                .Append(item.Quantity)
+                .Append(" ")
+                .Append(item.UnitOfMeasure)
+                .Append(", ")
+                .Append(item.PricePerUnit.GetWholePart())
+                .Append(".")
+                .Append(item.PricePerUnit.GetFractionalPart())
+                .Append(" ")
+                .Append(item.PricePerUnit.Currency.Symbol)
+                .Append(", ")
+                .Append(item.LastDeliveryDate);
+
+            Console.WriteLine(sb.ToString());
+        }
+    }
+    
+    private void ValidateItemInWarehouse(WarehouseItem item)
+    {
+        if (!_warehouse.Items.Contains(item))
+        {
+            throw new InvalidOperationException("Item not found in warehouse.");
         }
     }
 }

@@ -10,10 +10,7 @@ public class Warehouse(List<WarehouseItem> items)
 
     public void AddItem(WarehouseItem item)
     {
-        if (item == null)
-        {
-            throw new ArgumentNullException(nameof(item), "Item cannot be null.");
-        }
+        Validator.ValidateNotNull(item, nameof(item));
 
         if (!Items.Contains(item))
         {
