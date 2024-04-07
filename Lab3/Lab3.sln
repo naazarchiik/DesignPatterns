@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy", "Proxy\Proxy.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composite", "Composite\Composite.csproj", "{33EBD690-237E-48AF-B3B0-AB6893223096}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flyweight", "Flyweight\Flyweight.csproj", "{C3E53F23-A89B-4D97-B142-C580950873CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{33EBD690-237E-48AF-B3B0-AB6893223096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33EBD690-237E-48AF-B3B0-AB6893223096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33EBD690-237E-48AF-B3B0-AB6893223096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E53F23-A89B-4D97-B142-C580950873CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E53F23-A89B-4D97-B142-C580950873CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E53F23-A89B-4D97-B142-C580950873CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E53F23-A89B-4D97-B142-C580950873CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
