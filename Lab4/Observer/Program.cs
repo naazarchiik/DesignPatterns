@@ -17,5 +17,15 @@ internal class Program
         div.TriggerEvent("click");
 
         Console.WriteLine(div.OuterHtml);
+        
+        //Strategy pattern usage example
+        
+        var image = new Image(new FileSystemImageLoadingStrategy());
+
+        image.Load("image.jpg");
+
+        image.SetLoadingStrategy(new NetworkImageLoadingStrategy());
+
+        image.Load("https://example.com/image.jpg");
     }
 }
