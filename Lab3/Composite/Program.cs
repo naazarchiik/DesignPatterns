@@ -12,6 +12,6 @@ class Program
         span.AddChild(new LightTextNode("This is a span."));
         div.AddChild(span);
 
-        Console.WriteLine(div.OuterHtml);
+        div.Render();
     }
 }

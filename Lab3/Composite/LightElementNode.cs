@@ -34,6 +34,7 @@ public class LightElementNode : LightNode
             string classes = _cssClasses.Any() ? $" class=\"{string.Join(" ", _cssClasses)}\"" : "";
             string startTag = $"<{_tagName}{classes}>";
             string endTag = _isSelfClosing ? "" : $"</{_tagName}>";
+            OnStylesApplied();
             return startTag + InnerHtml + endTag;
         }
     }
@@ -44,5 +45,20 @@ public class LightElementNode : LightNode
         {
             return string.Join(_isBlock ? "\n" : "", _children.Select(child => child.OuterHtml));
         }
+    }
+    
+    protected override void OnCreated()
+    {
+        Console.WriteLine($"Element {_tagName} has been created.");
+    }
+
+    protected override void OnRendered()
+    {
+        Console.WriteLine($"Element {_tagName} has been rendered.");
+    }
+    
+    protected override void OnStylesApplied()
+    {
+        Console.WriteLine($"Styles have been applied to element {_tagName}.");
     }
 }
