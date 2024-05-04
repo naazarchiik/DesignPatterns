@@ -1,12 +1,15 @@
-﻿namespace Composite;
+﻿using System.Collections;
 
-public class LightElementNode : LightNode
+namespace Composite;
+
+public class LightElementNode : LightNode, IEnumerable<LightNode>
 {
     private string _tagName;
     private bool _isBlock;
     private bool _isSelfClosing;
     private List<string> _cssClasses;
     private List<LightNode> _children;
+    private Dictionary<Type, int> _typeCounts = new Dictionary<Type, int>();
 
     public LightElementNode(string tagName, bool isBlock, bool isSelfClosing)
     {
@@ -60,5 +63,37 @@ public class LightElementNode : LightNode
     protected override void OnStylesApplied()
     {
         Console.WriteLine($"Styles have been applied to element {_tagName}.");
+    }
+    
+    public override IHtmlIterator GetIterator()
+    {
+        return new HtmlIterator(_children);
+    }
+    
+    private void InitializeTypeCounts()
+    {
+        _typeCounts.Clear();
+        foreach (var child in _children)
+        {
+            Type type = child.GetType();
+            if (_typeCounts.ContainsKey(type))
+            {
+                _typeCounts[type]++;
+            }
+            else
+            {
+                _typeCounts[type] = 1;
+            }
+        }
+    }
+    
+    public IEnumerator<LightNode> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
