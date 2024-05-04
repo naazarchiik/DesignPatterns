@@ -114,4 +114,14 @@ public class LightElementNode : LightNode, IEnumerable<LightNode>
     {
         visitor.Visit(this);
     }
+    
+    public void ExecuteCommand(ICommand command)
+    {
+        command.Execute(this);
+    }
+
+    public void UndoCommand(ICommand command)
+    {
+        command.Undo(this);
+    }
 }
