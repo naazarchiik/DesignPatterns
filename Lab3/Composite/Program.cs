@@ -17,6 +17,14 @@ class Program
         div.AddChild(span2);
         span2.SetVisibilityState(new HiddenState());
         
+        ICommand addClassCommand = new AddClassCommand("highlight");
+        div.ExecuteCommand(addClassCommand);
+        
+        div.Render();
+        
+        div.UndoCommand(addClassCommand);
+        span2.SetVisibilityState(new VisibleState());
+        
         div.Render();
         
         var visitor = new ElementCounterVisitor();
@@ -29,6 +37,5 @@ class Program
         Console.WriteLine($"Number of LightElementNodes: {visitor.ElementNodeCount}");
         Console.WriteLine($"Number of LightTextNodes: {visitor.TextNodeCount}");
         
-        span2.SetVisibilityState(new VisibleState());
     }
 }
