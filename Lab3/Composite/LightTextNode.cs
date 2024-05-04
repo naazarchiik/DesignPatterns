@@ -41,4 +41,9 @@ public class LightTextNode : LightNode
             _typeCounts[type] = 1;
         }
     }
+    
+    public override void Accept(IVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
 }
