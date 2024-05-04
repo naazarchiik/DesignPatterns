@@ -15,22 +15,15 @@ class Program
         LightElementNode span2 = new LightElementNode("span", false, false);
         span2.AddChild(new LightTextNode("This is a second span."));
         div.AddChild(span2);
-
-        //div.Render();
         
+        var visitor = new ElementCounterVisitor();
         var iterator = div.GetIterator();
-        int elementNodeCount = 0;
-        int textNodeCount = 0;
         while (iterator.MoveNext())
         {
             var node = iterator.GetCurrent();
-            Console.WriteLine(node.OuterHtml);
-
-            elementNodeCount = iterator.CountElementsOfType<LightElementNode>();
-            textNodeCount = iterator.CountElementsOfType<LightTextNode>();
-            
+            node.Accept(visitor);
         }
-        Console.WriteLine($"Number of LightElementNodes: {elementNodeCount}");
-        Console.WriteLine($"Number of LightTextNodes: {textNodeCount}");
+        Console.WriteLine($"Number of LightElementNodes: {visitor.ElementNodeCount}");
+        Console.WriteLine($"Number of LightTextNodes: {visitor.TextNodeCount}");
     }
 }

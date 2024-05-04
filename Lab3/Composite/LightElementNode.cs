@@ -96,4 +96,9 @@ public class LightElementNode : LightNode, IEnumerable<LightNode>
     {
         return GetEnumerator();
     }
+    
+    public override void Accept(IVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
 }
