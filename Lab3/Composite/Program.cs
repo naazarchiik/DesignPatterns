@@ -15,6 +15,9 @@ class Program
         LightElementNode span2 = new LightElementNode("span", false, false);
         span2.AddChild(new LightTextNode("This is a second span."));
         div.AddChild(span2);
+        span2.SetVisibilityState(new HiddenState());
+        
+        div.Render();
         
         var visitor = new ElementCounterVisitor();
         var iterator = div.GetIterator();
@@ -25,5 +28,7 @@ class Program
         }
         Console.WriteLine($"Number of LightElementNodes: {visitor.ElementNodeCount}");
         Console.WriteLine($"Number of LightTextNodes: {visitor.TextNodeCount}");
+        
+        span2.SetVisibilityState(new VisibleState());
     }
 }

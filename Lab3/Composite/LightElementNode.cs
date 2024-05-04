@@ -10,6 +10,7 @@ public class LightElementNode : LightNode, IEnumerable<LightNode>
     private List<string> _cssClasses;
     private List<LightNode> _children;
     private Dictionary<Type, int> _typeCounts = new Dictionary<Type, int>();
+    public IVisibilityState VisibilityState { get; private set; }
 
     public LightElementNode(string tagName, bool isBlock, bool isSelfClosing)
     {
@@ -18,6 +19,7 @@ public class LightElementNode : LightNode, IEnumerable<LightNode>
         this._isSelfClosing = isSelfClosing;
         this._cssClasses = new List<string>();
         this._children = new List<LightNode>();
+        this.VisibilityState = new VisibleState();
     }
 
     public void AddClass(string cssClass)
@@ -25,9 +27,20 @@ public class LightElementNode : LightNode, IEnumerable<LightNode>
         _cssClasses.Add(cssClass);
     }
 
+    public void RemoveClass(string cssClass)
+    {
+        _cssClasses.Remove(cssClass);
+    }
+
     public void AddChild(LightNode child)
     {
         _children.Add(child);
+    }
+    
+    public void SetVisibilityState(IVisibilityState state)
+    {
+        this.VisibilityState = state;
+        this.VisibilityState.Apply(this);
     }
 
     public override string OuterHtml
