@@ -15,4 +15,5 @@ public abstract class LightNode
     protected virtual void OnCreated() { }
     protected virtual void OnRendered() { }
     protected virtual void OnStylesApplied() { } 
+    public abstract IHtmlIterator GetIterator();
 }
